@@ -1,15 +1,15 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import {InjectRepository} from '@nestjs/typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import {CreateTodoDto} from './dto/create-todo.dto';
-import {UpdateTodoDto} from './dto/update-todo.dto';
+import { CreateTodoDto } from './dto/create-todo.dto';
+import { UpdateTodoDto } from './dto/update-todo.dto';
 import { TodoEntity } from './entities/todo.entity';
 
 @Injectable()
 export class TodoService {
   constructor(
     @InjectRepository(TodoEntity)
-    private readonly todoRepository: Repository<TodoEntity>
+    private readonly todoRepository: Repository<TodoEntity>,
   ) {}
 
   async findAll() {
@@ -19,7 +19,7 @@ export class TodoService {
   async findOneOrFail(id: string) {
     try {
       return await this.todoRepository.findOneByOrFail({ id });
-    } catch(error) {
+    } catch (error) {
       throw new NotFoundException(error.message);
     }
   }
@@ -29,7 +29,7 @@ export class TodoService {
   }
 
   async update(id: string, data: UpdateTodoDto) {
-   const todo = await this.findOneOrFail(id);
+    const todo = await this.findOneOrFail(id);
     this.todoRepository.merge(todo, data);
     return await this.todoRepository.save(todo);
   }
@@ -39,4 +39,3 @@ export class TodoService {
     await this.todoRepository.softDelete(id);
   }
 }
-
