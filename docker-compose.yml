@@ -1,0 +1,35 @@
+version: '3.0'
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: ./.docker/Dockerfile
+    container_name: nestjs-app
+    restart: always
+    ports:
+      - 3000:3000
+    command: /usr/src/app/.docker/entrypoint.sh
+    volumes:
+      - ./:/usr/src/app
+    depends_on:
+      - database
+    environment:
+      - DB_HOST=database
+      - DB_PORT=3306
+      - DB_USERNAME=root
+      - DB_PASSWORD=123
+      - DB_DATABASE=todo
+  database:
+    image: mariadb:latest
+    container_name: database
+    volumes:
+      - "db_data:/var/lib/mariadb"
+      - "./mariadb/initial_data:/docker-entrypoint-initdb.d"
+    ports:
+      - "3306:3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=123
+      - MARIADB_DATABASE=todo
+volumes:
+  db_data:
+
