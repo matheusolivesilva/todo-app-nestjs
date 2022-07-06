@@ -7,7 +7,7 @@ services:
     container_name: nestjs-app
     restart: always
     ports:
-      - 3000:3000
+      - 3333:3333
     command: /usr/src/app/.docker/entrypoint.sh
     volumes:
       - ./:/usr/src/app
