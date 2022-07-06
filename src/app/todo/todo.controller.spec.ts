@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import {CreateTodoDto} from './dto/create-todo.dto';
-import {UpdateTodoDto} from './dto/update-todo.dto';
-import {TodoEntity} from './entities/todo.entity';
+import { CreateTodoDto } from './dto/create-todo.dto';
+import { UpdateTodoDto } from './dto/update-todo.dto';
+import { TodoEntity } from './entities/todo.entity';
 import { TodoController } from './todo.controller';
-import {TodoService} from './todo.service';
+import { TodoService } from './todo.service';
 
 const todoEntityList: TodoEntity[] = [
   new TodoEntity({ id: '1', task: 'task-1', isDone: 0 }),
@@ -31,9 +31,9 @@ describe('TodoController', () => {
             findOneOrFail: jest.fn().mockResolvedValue(todoEntityList[0]),
             update: jest.fn().mockResolvedValue(updatedTodoEntity),
             deleteById: jest.fn().mockResolvedValue(undefined),
-          }
-        }
-      ]
+          },
+        },
+      ],
     }).compile();
 
     todoController = module.get<TodoController>(TodoController);
@@ -46,7 +46,7 @@ describe('TodoController', () => {
   });
 
   describe('index', () => {
-    it('should return a todo list entity successfully', async() => {
+    it('should return a todo list entity successfully', async () => {
       // Act
       const result = await todoController.index();
 
@@ -97,7 +97,7 @@ describe('TodoController', () => {
   });
 
   describe('show', () => {
-    it('should get a todo item successfully', async () =>{
+    it('should get a todo item successfully', async () => {
       // Act
       const result = await todoController.show('1');
 

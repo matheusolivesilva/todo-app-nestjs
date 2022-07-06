@@ -1,4 +1,4 @@
-import {ApiProperty, ApiPropertyOptional} from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsIn, IsNotEmpty } from 'class-validator';
 
 export class CreateTodoDto {
@@ -11,4 +11,3 @@ export class CreateTodoDto {
   @ApiPropertyOptional()
   isDone: number;
 }
-
